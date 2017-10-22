@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-" ?>
+<litepal>
+    <dbname value="database"></dbname>
+
+    <version value="1"></version>
+
+    <list>
+        <mapping class="com.sdite.innovate.Demo.Data"></mapping>
+    </list>
+</litepal>

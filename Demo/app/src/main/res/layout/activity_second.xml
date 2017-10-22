@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- cacheColorHint：系统默认拖动过程中列表背景是黑的,设置为透明 -->
+    <ExpandableListView
+        android:id="@+id/expendlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        >
+    </ExpandableListView>
+
+</android.support.percent.PercentRelativeLayout>
