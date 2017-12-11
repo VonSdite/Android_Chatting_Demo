@@ -90,6 +90,29 @@
         android:textColorHint="@color/colorHint"
         />
 
+    <RadioButton
+        android:id="@+id/savepassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="记住密码"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/password_txt"
+        app:layout_marginTopPercent="3%"
+        android:layout_alignLeft="@+id/password_txt"
+        />
+
+    <RadioButton
+        android:id="@+id/autoLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自动登录"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/password_txt"
+        app:layout_marginTopPercent="3%"
+        app:layout_marginLeftPercent="40%"
+        android:layout_alignLeft="@+id/password_txt"
+        />
+
     <EditText
         android:id="@+id/password"
         app:layout_widthPercent="55%"

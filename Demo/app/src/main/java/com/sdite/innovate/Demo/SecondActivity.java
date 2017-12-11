@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,15 +49,13 @@ public class SecondActivity extends AppCompatActivity {
 
     private ExpandableListView expandableListView;
 
-    private List<String> groupList;         // 存放每个分组
+    private List<String> groupList;             // 存放每个分组
 
-    private List<List<String>> friendsName;    // 存放每个组的元素的名字
+    private List<List<String>> friendsName;     // 存放每个组的元素的名字
 
-    private List<List<String>> friendsNote;    // 存放每个组的元素的个性签名
+    private List<List<String>> friendsNote;     // 存放每个组的元素的个性签名
 
-    private List<List<Integer>> friendsIcon;  // 存放每个组的元素的图标
-
-
+    private List<List<Integer>> friendsIcon;    // 存放每个组的元素的图标
 
     private MyExpandableListViewAdapter adapter;
 
@@ -66,6 +63,7 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
         ActivityCollector.addActivity(this);
 
         setTitle("好友列表");

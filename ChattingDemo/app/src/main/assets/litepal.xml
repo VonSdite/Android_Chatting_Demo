@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+    <dbname value="data"></dbname>
+
+    <version value="3"></version>
+
+    <list>
+        <mapping class="com.sdite.innovate.chattingdemo.module.UserData"></mapping>
+        <mapping class="com.sdite.innovate.chattingdemo.module.Msg"></mapping>
+    </list>
+
+</litepal>

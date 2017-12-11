@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/username_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name"
+        android:textStyle="bold"
+        android:textSize="27sp"
+        android:textColor="@color/colorBlue"
+        app:layout_marginLeftPercent="12%"
+        app:layout_marginTopPercent="23%"
+        />
+
+    <EditText
+        android:id="@+id/user_name"
+        app:layout_widthPercent="55%"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_alignBottom="@+id/username_txt"
+        android:layout_marginBottom="-10dp"
+        android:layout_toEndOf="@+id/username_txt"
+        android:layout_toRightOf="@+id/username_txt"
+        app:layout_marginLeftPercent="2%"
+        android:text=""
+        android:theme="@style/MyEditText"
+        android:textColor="@color/colorWhite"
+        android:textSize="27sp"
+        android:textColorHint="@color/colorHint"
+        android:hint="@string/username_hint"
+        />
+
+    <TextView
+        android:id="@+id/password_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="27sp"
+        android:layout_alignEnd="@id/username_txt"
+        android:layout_alignRight="@id/username_txt"
+        app:layout_marginTopPercent="40%"
+        android:text="@string/user_password"
+        android:textColor="@color/colorBlue"
+        />
+
+    <EditText
+        android:id="@+id/password"
+        app:layout_widthPercent="55%"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:layout_toRightOf="@+id/password_txt"
+        android:layout_toEndOf="@+id/password_txt"
+        android:layout_alignBottom="@+id/password_txt"
+        android:layout_marginBottom="-10dp"
+        app:layout_marginLeftPercent="2%"
+        android:theme="@style/MyEditText"
+        android:textSize="27sp"
+        android:hint="@string/password_hint"
+        android:textColorHint="@color/colorHint"/>
+
+    <CheckBox
+        android:id="@+id/save_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_password"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/password_txt"
+        app:layout_marginTopPercent="8%"
+        android:layout_alignLeft="@+id/password_txt"
+        android:layout_alignStart="@+id/password_txt"
+        android:checked="false"
+        android:button="@drawable/checkbox"
+        />
+
+    <CheckBox
+        android:id="@+id/auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/auto_login"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/password_txt"
+        app:layout_marginTopPercent="8%"
+        app:layout_marginLeftPercent="43%"
+        android:layout_alignLeft="@+id/password_txt"
+        android:layout_alignStart="@+id/password_txt"
+        android:checked="false"
+        android:button="@drawable/checkbox"
+        />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_txt"
+        android:textSize="18sp"
+        android:layout_below="@+id/password_txt"
+        app:layout_marginTopPercent="18%"
+        app:layout_marginLeftPercent="17%"
+        />
+
+    <Button
+        android:id="@+id/cancel_butoon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel_txt"
+        android:textSize="18sp"
+        android:layout_alignBottom="@+id/login_button"
+        android:layout_toRightOf="@+id/sign_up"
+        android:layout_toEndOf="@+id/sign_up"
+        app:layout_marginLeftPercent="4%"/>
+
+    <TextView
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_sign_up"
+        android:textSize="15sp"
+        app:layout_marginTopPercent="6%"
+        android:layout_below="@+id/cancel_butoon"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorWhite"
+        />
+
+</android.support.percent.PercentRelativeLayout>

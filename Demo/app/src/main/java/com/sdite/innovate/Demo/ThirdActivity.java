@@ -3,7 +3,6 @@ package com.sdite.innovate.Demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
@@ -47,7 +45,7 @@ public class ThirdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_third);
         ActivityCollector.addActivity(this);
 
-        Button sign_up_button = (Button)findViewById(R.id.sign_up_button);    // 注册按钮
+        Button sign_up_button = (Button)findViewById(R.id.sign_up_button);          // 注册按钮
         final Button back_button = (Button)findViewById(R.id.back_button);          // 返回按钮
 
         final EditText user_name_edit = (EditText)findViewById(R.id.user_name);     // 用户名输入框
@@ -71,9 +69,9 @@ public class ThirdActivity extends AppCompatActivity {
                     Toast.makeText(ThirdActivity.this, "请设置密码长度在6-16位", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    List<Data> judge = DataSupport.where("userName = ?", user_name).find(Data.class);
+                    List<UserData> judge = DataSupport.where("userName = ?", user_name).find(UserData.class);
                     if (judge.isEmpty()) {
-                        Data data = new Data();
+                        UserData data = new UserData();
                         data.setUserName(user_name);
                         data.setPassword(password);
                         Toast.makeText(ThirdActivity.this, "用户注册成功", Toast.LENGTH_SHORT).show();

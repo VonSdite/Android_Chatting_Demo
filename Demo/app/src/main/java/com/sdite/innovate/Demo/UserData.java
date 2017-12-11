@@ -6,7 +6,7 @@ import org.litepal.crud.DataSupport;
  * Created by Sdite on 2017/10/1.
  */
 
-public class Data extends DataSupport {
+public class UserData extends DataSupport {
     private String userName;
     private String password;
 

@@ -2,7 +2,6 @@ package com.sdite.innovate.Demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -59,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         LitePal.getDatabase();              // 创建用户数据库
 
-        List<Data> datas = DataSupport.findAll(Data.class);
-        for (Data data:datas)
+        List<UserData> datas = DataSupport.findAll(UserData.class);
+        for (UserData data:datas)
         {
             Log.i(TAG, "username: " + data.getUserName() + " password: " + data.getPassword());
         }
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    List<Data> judge = DataSupport.where("userName = ?", user_name).find(Data.class);
+                    List<UserData> judge = DataSupport.where("userName = ?", user_name).find(UserData.class);
                     if (judge.isEmpty()) {
                         Toast.makeText(MainActivity.this, "用户名不存在", Toast.LENGTH_SHORT).show();
                     } else {
@@ -128,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        List<Data> alldatas = DataSupport.findAll(Data.class);
-        for (Data data:alldatas)
+        List<UserData> alldatas = DataSupport.findAll(UserData.class);
+        for (UserData data:alldatas)
         {
             Log.i(TAG, "username: " + data.getUserName() + " password: " + data.getPassword());
         }

@@ -95,7 +95,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                                 // Copy to customize OkHttp for this request.
                                 OkHttpClient copy = client.newBuilder()
                                         .readTimeout(500, TimeUnit.MILLISECONDS)
-                                        .connectTimeout(1, TimeUnit.SECONDS)
+                                        .connectTimeout(500, TimeUnit.MILLISECONDS)
                                         .build();
 
                                 Response response = copy.newCall(request).execute();
