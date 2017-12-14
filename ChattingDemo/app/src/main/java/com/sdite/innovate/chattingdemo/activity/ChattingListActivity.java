@@ -36,8 +36,6 @@ public class ChattingListActivity extends AppCompatActivity {
 
     private MyExpandableListViewAdapter adapter;
 
-    public static int who = 2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,11 +56,7 @@ public class ChattingListActivity extends AppCompatActivity {
         List<String> item_1t;
         item_1t = new ArrayList<String>();
         item_1t.add("robot");
-        if (who == 0) {
-            item_1t.add("chatPerson");
-        } else {
-            item_1t.add("admin");
-        }
+        item_1t.add("socketTest");
         item_1t.add("al_bassam");
         item_1t.add("amalraj");
         item_1t.add("anash");
@@ -94,11 +88,7 @@ public class ChattingListActivity extends AppCompatActivity {
         friendsNote = new ArrayList<List<String>>();
         List<String> tmp_note1 = new ArrayList<String>();
         tmp_note1.add("聊天机器人");
-        if (who == 0) {
-            tmp_note1.add("可以聊天的人");
-        } else {
-            tmp_note1.add("管理员");
-        }
+        tmp_note1.add("Socket通信聊天");
         tmp_note1.add("Software Engineer");
         tmp_note1.add("Founderand CEO");
         tmp_note1.add("SoftwareArchitect");
@@ -172,13 +162,9 @@ public class ChattingListActivity extends AppCompatActivity {
                     Intent intent = new Intent(ChattingListActivity.this, ChatRoomActivity.class);
                     ChatRoomActivity.who = 0;
                     startActivity(intent);
-                } else if (name.equals("admin") && who == 1) {
+                } else if (name.equals("socketTest")) {
                     Intent intent = new Intent(ChattingListActivity.this, ChatRoomActivity.class);
                     ChatRoomActivity.who = 1;
-                    startActivity(intent);
-                } else if (name.equals("chatPerson")) {
-                    Intent intent = new Intent(ChattingListActivity.this, ChatRoomActivity.class);
-                    ChatRoomActivity.who = 2;
                     startActivity(intent);
                 } else {
                     Toast.makeText(ChattingListActivity.this, "你点击的是第" + (1+groupPosition)

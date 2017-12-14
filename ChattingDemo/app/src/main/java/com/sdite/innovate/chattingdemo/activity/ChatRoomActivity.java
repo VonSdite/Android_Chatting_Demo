@@ -1,6 +1,7 @@
 package com.sdite.innovate.chattingdemo.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -33,12 +34,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.net.SocketException;
+import java.net.Socket;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -67,11 +66,16 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     public static int who = 0;
 
-    private static final int SOCKET_PORT = 50000;
-    private DatagramSocket socket;
+    private static final int SOCKET_PORT = 8888;
+    private Socket socket;
+    private DataInputStream in = null;
+    private DataOutputStream out = null;
+    private boolean done;
+    private String line;
 
 
     private static final String TAG = "ChatRoomActivity";
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler()
     {
         public void handleMessage(android.os.Message msg)
@@ -116,65 +120,46 @@ public class ChatRoomActivity extends AppCompatActivity {
         if (who != 0) pic.setVisibility(View.GONE);
 
         if (who == 1) {
-            SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", SOCKET_PORT);
-            try {
-                socket = new DatagramSocket(socketAddress);
-
-                new Thread() {
-                    private byte buff[] = new byte[1024];
-                    @Override
-                    public void run() {
-                        DatagramPacket p = new DatagramPacket(buff, 1024);
-                        while (true) {
-                            try {
-                                socket.receive(p);
-                                Message msg = new Message();
-                                msg.obj = new String(p.getData());
-                                mHandler.sendMessage(msg);
-
-                                for (int i = 0; i < 1024; ++i)
-                                {
-                                    buff[i] = 0;
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        socket = new Socket("10.0.2.2", SOCKET_PORT);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        out = new DataOutputStream(socket.getOutputStream());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        in = new DataInputStream(socket.getInputStream());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    done = false;
+                    line = null;
+                    while (!done) {
+                        try {
+                            while ((line = in.readUTF()) != null) {
+                                Message message = Message.obtain();
+                                message.obj = line;
+                                mHandler.sendMessage(message);
                             }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            in.close();
+                            out.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
-                }.start();
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
-        } else if (who == 2) {
-            SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", SOCKET_PORT+1);
-            try {
-                socket = new DatagramSocket(socketAddress);
+                }
+            }.start();
 
-                new Thread() {
-                    private byte buff[] = new byte[1024];
-                    @Override
-                    public void run() {
-                        DatagramPacket p = new DatagramPacket(buff, 1024);
-                        while (true) {
-                            try {
-                                socket.receive(p);
-                                Message msg = new Message();
-                                msg.obj = new String(p.getData());
-                                mHandler.sendMessage(msg);
-
-                                for (int i = 0; i < 1024; ++i)
-                                {
-                                    buff[i] = 0;
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }.start();
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }
         }
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -241,54 +226,17 @@ public class ChatRoomActivity extends AppCompatActivity {
                         msgRecyclerView.scrollToPosition(msgList.size() - 1);    // 将ListView定位到最后一行
                         inputText.setText(""); // 清空输入框中的内容
 
-                        final SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", SOCKET_PORT);
-                        try {
-                            socket = new DatagramSocket(socketAddress);
-                            new Thread() {
-                                @Override
-                                public void run() {
-                                    DatagramPacket p = new DatagramPacket(content.getBytes(),
-                                            content.getBytes().length, socketAddress);
-                                    try {
-                                        socket.send(p);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                try {
+                                    out.writeUTF(content);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                    Log.i(TAG, "onClick: 服务器未启动");
                                 }
-                            }.start();
-                        } catch (SocketException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else if (who == 2) {
-                    content = inputText.getText().toString();
-                    if (content != "") {
-                        Msg msg = new Msg(content, Msg.TYPE_SENT);
-                        msg.setIsWho(who);
-                        msgList.add(msg);
-                        msg.save();         // 保存到数据库
-                        adapter.notifyItemInserted(msgList.size() - 1); // 当有新消息时，刷新ListView中的显示
-                        msgRecyclerView.scrollToPosition(msgList.size() - 1);    // 将ListView定位到最后一行
-                        inputText.setText(""); // 清空输入框中的内容
-
-                        final SocketAddress socketAddress = new InetSocketAddress("127.0.0.1", SOCKET_PORT+1);
-                        try {
-                            socket = new DatagramSocket(socketAddress);
-                            new Thread() {
-                                @Override
-                                public void run() {
-                                    DatagramPacket p = new DatagramPacket(content.getBytes(),
-                                            content.getBytes().length, socketAddress);
-                                    try {
-                                        socket.send(p);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }.start();
-                        } catch (SocketException e) {
-                            e.printStackTrace();
-                        }
+                            }
+                        }.start();
                     }
                 }
             }

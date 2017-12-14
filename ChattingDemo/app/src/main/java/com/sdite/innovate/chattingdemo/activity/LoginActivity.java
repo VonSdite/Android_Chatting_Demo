@@ -67,16 +67,6 @@ public class LoginActivity extends AppCompatActivity {
             admin.save();
         }
 
-        judge = DataSupport.where("userName = ?", "chatPerson").find(UserData.class);
-        if (judge.isEmpty()) {
-            // 没有管理员账户则创建
-            UserData admin = new UserData();
-            admin.setUserName("chatPerson");
-            admin.setPassword("123456");
-            admin.save();
-        }
-
-
         // 输出数据库中已有的用户名和密码
         for (UserData data:datas)
         {
@@ -153,13 +143,6 @@ public class LoginActivity extends AppCompatActivity {
                             editor.apply();
 
                             Intent intent = new Intent(LoginActivity.this, ChattingListActivity.class);
-                            if (user_name.equals("admin")) {
-                                ChattingListActivity.who = 0;
-                            } else if (user_name.equals("chatPerson")){
-                                ChattingListActivity.who = 1;
-                            } else {
-                                ChattingListActivity.who = 2;
-                            }
                             startActivity(intent);
                         }
                     }
