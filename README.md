@@ -12,18 +12,19 @@
 ***build.gradle的dependencies***
 ```
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'org.litepal.android:core:1.4.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:percent:24.2.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'org.litepal.android:core:1.6.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:percent:26.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
 }
+
 ```
 ## 功能
     
@@ -43,6 +44,11 @@ dependencies {
 
     + 使用的是图灵机器人的API接口
     + 从Json数据来获取机器人的回复消息，从而实现聊天机器人的功能 
+
+- **socket通信功能**
+
+    + 项目中的server文件夹中的代码为服务端代码， 好友列表中的socketTest为客户端
+    + 实现了客户端服务端之间的通信
 
 ## 界面
 
