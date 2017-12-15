@@ -125,19 +125,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 public void run() {
                     try {
                         socket = new Socket("10.0.2.2", SOCKET_PORT);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
                         out = new DataOutputStream(socket.getOutputStream());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
                         in = new DataInputStream(socket.getInputStream());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     done = false;
                     line = null;
                     while (!done) {
@@ -230,10 +223,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    out.writeUTF(content);
+                                    if (out != null) {
+                                        out.writeUTF(content);
+                                    } else {
+                                        Message message = Message.obtain();
+                                        message.obj = "服务器未启动, 请先退出程序，运行服务器再运行程序";
+                                        mHandler.sendMessage(message);
+                                    }
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                    Log.i(TAG, "onClick: 服务器未启动");
                                 }
                             }
                         }.start();

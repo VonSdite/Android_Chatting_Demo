@@ -72,14 +72,17 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
             holder.leftLayout.setVisibility(View.VISIBLE);
             holder.rightLayout.setVisibility(View.GONE);
             holder.leftMsg.setText(msg.getContent());
+            holder.leftImg.setVisibility(View.GONE);
         } else if (msg.getType() == Msg.TYPE_SENT) {
             // 如果是发出的消息，则显示右边的消息布局，将左边的消息布局隐藏
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.leftLayout.setVisibility(View.GONE);
             holder.rightMsg.setText(msg.getContent());
+            holder.rightImg.setVisibility(View.GONE);
         } else if (msg.getType() == Msg.TYPE_SENT_PIC) {
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.leftLayout.setVisibility(View.GONE);
+            holder.rightMsg.setVisibility(View.GONE);
 
             String imagePath = msg.getContent();
             if (imagePath != null) {
@@ -90,7 +93,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
         } else if (msg.getType() == Msg.TYPE_RECEIVED_PIC) {
             holder.rightLayout.setVisibility(View.GONE);
             holder.leftLayout.setVisibility(View.VISIBLE);
-
+            holder.leftMsg.setVisibility(View.GONE);
             String imagePath = msg.getContent();
             if (imagePath != null) {
                 // 显示图片
