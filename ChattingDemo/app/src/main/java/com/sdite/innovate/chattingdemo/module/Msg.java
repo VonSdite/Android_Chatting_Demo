@@ -22,7 +22,6 @@ public class Msg extends DataSupport {
 
     private int isWho;
 
-
     public Msg(String content, int type) {
         this.content = content;
         this.type = type;
